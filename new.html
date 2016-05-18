@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>toDo</title>
+	<script type="text/javascript" src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js"></script>
+	<link rel="stylesheet" type="text/css" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css">
+	<script src="http://ajax.googleapis.com/ajax/libs/angularjs/1.4.8/angular.min.js"></script>
+	<link rel="stylesheet" type="text/css" href="style.css">
+	
+</head>
+<body ng-app="myApp" ng-controller="todoCtrl">
+	<div class="container">
+  <h2 class="text-center">simple to do list</h2>
+  <div class="row">
+  	<!-- <div ng-repeat="x in todoList">
+	    <input type="checkbox" ng-model="x.done" ng-click="remove()"> <span ng-bind="x.todoText"></span>
+	</div> -->
+  </div>
+  <div class="row">
+  	<div class="col-md-4">
+  		
+  	</div>
+  
+  	<div ng-repeat="x in todoList">
+	    <input type="checkbox" ng-model="x.done" ng-click="remove()"> <span ng-bind="x.todoText"></span>
+	</div>
+  
+  </div>
+  <div class="row">
+  	<div class="col-md-4">
+  		
+  	</div>
+  	<div class="col-md-4">
+  		<form class="form-inline" role="form" ng-submit="todoAdd()">
+		    <div class="form-group">
+		      <input type="text" class="form-control" ng-model="todoInput"  placeholder="Enter task">
+		    </div>
+	    	<button type="submit" class="btn btn-default">Submit</button>
+  		</form>
+  	</div>	
+  </div>
+</div>
+</body>
+<script>
+var app = angular.module('myApp', []); 
+app.controller('todoCtrl', function($scope) {
+    $scope.todoList = [{todoText:'Clean House', done:false}];
+
+    $scope.todoAdd = function() {
+        $scope.todoList.push({todoText:$scope.todoInput, done:false});
+        $scope.todoInput = "";
+    };
+
+    $scope.remove = function() {
+        var oldList = $scope.todoList;
+        $scope.todoList = [];
+        angular.forEach(oldList, function(x) {
+            if (!x.done) $scope.todoList.push(x);
+        });
+    };
+});
+</script>
+</html>
